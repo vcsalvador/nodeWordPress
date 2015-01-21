@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="nodewp">
+<head>
+	<title>Index</title>
+	<meta charset="utf8">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body ng-controller="MainController">
+	<div class="title">
+		<h1>nodeWordPress</h1>
+		<h2>Provavelmente você vai preferir o original ;)</h2>
+	</div>
+
+	<div name="LoginForm" class="login">
+		<form ng-controller="LoginController" ng-submit="login(auth)" novalidate>
+			<label for="username">User:</label>
+			<input type="text" id="username" ng-model="auth.usr">
+
+			<label for="password">Password:</label>
+			<input type="password" id="password" ng-model="auth.pass">
+
+			<input class="btn" type="submit" value="VAI!">
+		</form>
+	</div>
+
+
+<script src="js/scripts/angular.min.js"/></script>
+<script src="js/main.js"></script>
+<script src="js/scripts/angular-resource.js"></script>
+</body>
+</html>
