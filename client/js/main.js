@@ -29,18 +29,22 @@ app.controller('MainController',function ($scope, USER_ROLES, AuthService) {
   	};
 });
 
-app.controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+app.controller('LoginController', function ($http, $scope) {
 	  $scope.credentials = {
-		login: '',
-		pass: ''
-	  };
+  		login: '',
+  		pass: ''
+	  }
 	  $scope.login = function (credentials) {
-		    AuthService.login(credentials).then(function (user) {
-			    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			    $scope.setCurrentUser(user);
-		    }, function () {
-		      	$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-		    });
+      $http
+          .get('localhost:8080/login', JSON.stringify(credentials))
+            .success(console.log('funciona'))
+            .error(console.log('não funciona'));
+		    // AuthService.login(credentials).then(function (user) {
+			   //  $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			   //  $scope.setCurrentUser(user);
+		    // }, function () {
+		    //   	$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+		    // });
 	  };
 });
 
