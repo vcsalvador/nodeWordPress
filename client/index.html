@@ -12,12 +12,12 @@
 	</div>
 
 	<div name="LoginForm" class="login">
-		<form ng-controller="LoginController" ng-submit="login(auth)" novalidate>
+		<form ng-controller="LoginController" ng-submit="login(credentials)" novalidate>
 			<label for="username">User:</label>
-			<input type="text" id="username" ng-model="auth.usr">
+			<input type="text" id="username" ng-model="credentials.login">
 
 			<label for="password">Password:</label>
-			<input type="password" id="password" ng-model="auth.pass">
+			<input type="password" id="password" ng-model="credentials.pass">
 
 			<input class="btn" type="submit" value="VAI!">
 		</form>

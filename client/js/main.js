@@ -29,22 +29,20 @@ app.controller('MainController',function ($scope, USER_ROLES, AuthService) {
   	};
 });
 
-app.controller('LoginController', function ($http, $scope) {
-	  $scope.credentials = {
+app.controller('LoginController', function ($http, $scope, $rootScope, AUTH_EVENTS, AuthService) {
+	  this.credentials = {
   		login: '',
   		pass: ''
 	  }
 	  $scope.login = function (credentials) {
-      $http
-          .get('localhost:8080/login', JSON.stringify(credentials))
-            .success(console.log('funciona'))
-            .error(console.log('não funciona'));
-		    // AuthService.login(credentials).then(function (user) {
-			   //  $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-			   //  $scope.setCurrentUser(user);
-		    // }, function () {
-		    //   	$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-		    // });
+        console.log(credentials)
+        console.log($rootScope)
+		    AuthService.login(credentials).then(function (user) {
+			    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			    $scope.setCurrentUser(user);
+		    }, function () {
+		      	$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+		    });
 	  };
 });
 
@@ -56,6 +54,7 @@ app.factory('AuthService', function ($http, Session) {
     	return $http
       		.get('localhost:8080/login', JSON.stringify(credentials))
       		.then(function (res) {
+            console.log('loggin')
         		Session.create(res.data.id, res.data.user.id,
                        			res.data.user.role);
         		return res.data.user;
